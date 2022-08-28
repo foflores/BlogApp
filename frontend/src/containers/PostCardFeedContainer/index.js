@@ -4,7 +4,6 @@ import PostCardFeed from "../../components/PostCardFeed"
 import {useFetch} from "../../contexts/FetchContext"
 import {useSetCurrentPost} from "../../contexts/CurrentPostContext"
 import {useSearch} from "../../contexts/SearchContext"
-import { useAuth } from "../../contexts/AuthContext"
 
 export default function PostCardFeedContainer() {
 	let params = useParams()
@@ -12,7 +11,6 @@ export default function PostCardFeedContainer() {
 	let fetchData = useFetch()
 	let location = useLocation()
 	let setCurrentPost = useSetCurrentPost()
-	let isAuth = useAuth()
 
 	let [response, setResponse] = useState()
 	let [postData, setPostData] = useState()

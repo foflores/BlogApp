@@ -1,6 +1,9 @@
+from django.core.exceptions import ValidationError
 from database.models import Author, Post, Comment, PostLike
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import password_validation
+from django.conf import settings
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -34,11 +37,17 @@ class AuthorWithPasswordSerializer(serializers.ModelSerializer):
 		exclude = ["is_staff", "is_admin", "is_superuser", "groups", "user_permissions"]
 		read_only_fields = ["total_posts", "total_post_likes", "id", "date_joined", "last_login", "is_active"]
 
-	def create(self, validated_data):
-		author = Author(**validated_data)
-		author.password = make_password(validated_data["password"])
-		author.save()
-		return author
+	# def create(self, validated_data):
+	# 	author = Author(**validated_data)
+	# 	try:
+	# 		password_validation.validate_password(password=validated_data["password"])
+	# 	except ValidationError as e:
+	# 		print(e)
+	# 		return
+
+	# 	author.password = make_password(validated_data["password"])
+	# 	author.save()
+	# 	return author
 
 class AuthorWithPostsSerializer(AuthorSerializer):
 	posts = PostSerializer(many=True, read_only=True)

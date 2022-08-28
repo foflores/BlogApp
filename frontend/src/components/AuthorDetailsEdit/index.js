@@ -4,11 +4,17 @@ import user from "../../static/assets/user.svg"
 
 
 export default function AuthorDetailsEdit({props}) {
-	if (!props.authorData) return <h1>Loading...</h1>
+	if (!props.authorData) return <h1 className={styles.loading}>Loading</h1>
 
 	return (
 		<form className={styles.container} onSubmit={props.updateAuthor}>
-			<img className={styles.authorImage} src={props.authorData.profile_image ? props.authorData.profile_image : user} alt="User Profile"/>
+			<img
+				className={styles.authorImage}
+				src={props.authorData.profile_image ?
+				props.authorData.profile_image :
+				user}
+				alt="User Profile"
+			/>
 			<input type="file" name="newImage" onChange={props.handleImage} accept="image/*"/>
 
 			{props.error ? props.error : null}

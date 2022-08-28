@@ -50,6 +50,12 @@ export default function SignupForm({props}) {
 			/>
 
 			<label className={styles.label} htmlFor="password1">Password</label>
+			<div className={styles.passwordReq}>
+				<h5> Minimum 8 characters</h5>
+				<h5> Must contain letters and numbers</h5>
+				<h5> Cannot be a commonly used password</h5>
+			</div>
+			{props.formErrors.password ? <br></br> : null}
 			{props.formErrors.password ? <h5>{props.formErrors.password}</h5> : null}
 			<input
 				className={styles.input}

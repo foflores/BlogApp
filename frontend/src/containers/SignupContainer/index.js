@@ -27,7 +27,12 @@ export default function SignupContainer() {
 		event.preventDefault()
 
 		if (formData.password1 !== formData.password2) {
-			setError("Password fields do not match")
+			setFormErrors(prevState => {
+				return {
+					...prevState,
+					password: "passwords do not match"
+				}
+			})
 			return
 		}
 
@@ -71,8 +76,10 @@ export default function SignupContainer() {
 					}
 				})
 			}
+			console.log(signupRes.badRequest)
 		} else {
 			setError("Server error, please try again later")
+			console.log(signupRes.error)
 		}
 	}, [signupRes, fetchData, formData])
 

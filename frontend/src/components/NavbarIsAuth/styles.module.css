@@ -17,6 +17,7 @@
 }
 
 .item {
+	text-align: center;
 	padding: .6rem;
 	color: #000000;
 	background-color: #ffffff;

@@ -1,9 +1,9 @@
 .container {
-	margin: auto;
+	/* margin: auto; */
 	flex-direction: column;
 	align-items: center;
 	background-color: #ffffff;
-	padding: 1rem;
+	padding: .5rem;
 	border-radius: 5px;
 
 }
@@ -13,7 +13,7 @@
 	height: 5rem;
 	border: 2px solid #000000;
 	border-radius: 5px;
-	margin: .5rem;
+	margin: .5rem 0rem;
 }
 
 .detailContainer {
@@ -21,7 +21,8 @@
 	background-color: #dddddd;
 	width: max-content;
 	border-radius: 5px;
-	margin: .5rem;
+	/* margin: 1rem; */
+	/* padding: .5rem; */
 }
 
 .detailLabels, .detailData {
@@ -44,9 +45,9 @@
 .aboutMe {
 	margin: .5rem;
 	padding: 1rem;
-	width: fit-content;
-	max-width: 90%;
-	min-width: 18.6rem;
+	min-width: 75%;
+	width: max-content;
+	max-width: 100%;
 	flex-direction: column;
 	background-color: #dddddd;
 	border-radius: 5px;
@@ -73,10 +74,15 @@
 .textArea {
 	margin: .5rem;
 	padding: .5rem;
-	width: 90%;
-	min-width: 40rem;
+	width: 100%;
+	max-width: 100%;
 	height: 5rem;
 	border-radius: 5px;
-	max-width: 90%;
 	max-height: 30rem;
+}
+
+@media (width <= 576px) {
+	.aboutMe {
+		min-width: 100%;
+	}
 }

@@ -1,5 +1,6 @@
 from typing_extensions import Required
 from django.contrib.auth.models import AnonymousUser
+from django.core.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action, api_view
@@ -9,6 +10,9 @@ from database.models import Author, Post, PostLike, Comment
 from database.serializers import AuthorSerializer, PostSerializer, CommentSerializer
 from database.serializers import PostWithAuthorAndCommentsSerializer, AuthorWithPostsSerializer, AuthorWithPasswordSerializer
 from rest_framework import status
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth import password_validation
+
 
 class AuthorViewSet(ModelViewSet):
 	permission_classes = [IsAuthorOwnerOrReadOnly]
@@ -43,6 +47,31 @@ class AuthorViewSet(ModelViewSet):
 		elif self.request.method == "POST" and self.request.path == "/api/authors/":
 			serializer = AuthorWithPasswordSerializer
 		return serializer
+
+	def create(self, request):
+		errors = {}
+		if len(request.data) < 5:
+			return Response({"detail": "Missing fields"})
+		for key in request.data:
+			if key not in ["first_name", "last_name", "password", "username", "email"]:
+				return Response({"detail": "Missing fields"})
+
+		author = Author(**request.data)
+		try:
+			password_validation.validate_password(password=request.data["password"])
+		except ValidationError as e:
+			errors["password"] = e
+
+		author.password = make_password(request.data["password"])
+		try:
+			author.full_clean()
+		except ValidationError as e:
+			errors.update(e)
+
+		if len(errors) == 0:
+			return Response({}, status=status.HTTP_201_CREATED)
+
+		return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PostViewSet(ModelViewSet):

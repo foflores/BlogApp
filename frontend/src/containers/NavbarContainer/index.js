@@ -34,7 +34,7 @@ export default function NavbarContainer() {
 
 	// Check response and set image
 	useEffect(() => {
-		if (!profileData) return
+		if (!profileData || !profileData.data) return
 		setProfileImage(profileData.data.profile_image)
 	}, [profileData, setProfileImage])
 

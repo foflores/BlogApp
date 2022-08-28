@@ -44,12 +44,14 @@ export default function FetchProvider({ children }) {
 			setResponse({isValid: false})
 		} else if (response.ok) {
 			let data = await response.json()
+
 			setResponse({data: data})
 		} else {
 			try {
 				let data = await response.json()
 				setResponse({badRequest: data})
 			} catch (error) {
+				console.log(error)
 				setResponse({error: error})
 			}
 		}

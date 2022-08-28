@@ -52,7 +52,6 @@ export default function PostEditContainer() {
 			}
 		}
 		fetchData(request, setPostRes)
-		navigate(`/post/${params.postId}/`)
 	}
 
 	// Check update response and log errors

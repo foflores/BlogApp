@@ -1,10 +1,13 @@
 # dependencies
 **/node_modules
 
-# production
+# development
 **/build
+**/bin
+**/secrets
 
 # misc
 **/.DS_Store
 **/.vscode
 **/env
+**/__pycache__
